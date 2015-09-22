@@ -1,0 +1,13 @@
+# Requirements for server-notifications-django
+
+# Django (1.8 is a long-term support release)
+Django==1.8
+twilio
+
+# Production dependencies
+gunicorn
+
+# Test dependencies
+coverage
+mock
+six
