@@ -8,10 +8,8 @@ import json
 
 logger = logging.getLogger(__name__)
 
-MESSAGE = """[This is a test] ALERT!
-It appears the server is having issues.
-Exception: %s.
-Go to: http://newrelic.com for more details."""
+MESSAGE = """[This is a test] ALERT! It appears the server is having issues.
+Exception: %s. Go to: http://newrelic.com for more details."""
 
 NOT_CONFIGURED_MESSAGE = """Cannot initialize Twilio notification
 middleware. Required enviroment variables TWILIO_ACCOUNT_SID, or
@@ -38,7 +36,7 @@ def load_twilio_config():
 
 
 class MessageClient(object):
-    def __init__(self, config):
+    def __init__(self):
         (self.twilio_number, self.twilio_client) = load_twilio_config()
 
     def send_message(self, body, to):
