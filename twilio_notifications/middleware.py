@@ -1,7 +1,10 @@
+from __future__ import unicode_literals
+
 from twilio.rest import TwilioRestClient
 from django.core.exceptions import MiddlewareNotUsed
 import os
 import logging
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -15,43 +18,46 @@ middleware. Required enviroment variables TWILIO_ACCOUNT_SID, or
 TWILIO_AUTH_TOKEN or TWILIO_NUMBER missing"""
 
 
-class TwilioNotificationsMiddleware(object):
+def load_admins_file():
+    with open('config/administrators.json') as adminsFile:
+        admins = json.load(adminsFile)
+        return admins
 
-    def __init__(self):
-        (twilio_number, twilio_client) = self._twilio_config()
 
-        self.twilio_number = twilio_number
-        self.twilio_client = twilio_client
-        self.administrators = self._administrators()
+def load_twilio_config():
+    twilio_account_sid = os.environ.get('TWILIO_ACCOUNT_SID')
+    twilio_auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
+    twilio_number = os.environ.get('TWILIO_NUMBER')
 
-    def _twilio_config(self):
-        twilio_account_sid = os.environ.get('TWILIO_ACCOUNT_SID')
-        twilio_auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
-        twilio_number = os.environ.get('TWILIO_NUMBER')
+    if not all([twilio_account_sid, twilio_auth_token, twilio_number]):
+        logger.error(NOT_CONFIGURED_MESSAGE)
+        raise MiddlewareNotUsed
 
-        if not all([twilio_account_sid,
-                    twilio_auth_token,
-                    self.twilio_number]):
+    return (twilio_number,
+            TwilioRestClient(twilio_account_sid, twilio_auth_token))
 
-            logger.error(NOT_CONFIGURED_MESSAGE)
-            raise MiddlewareNotUsed
 
-        return (twilio_number,
-                TwilioRestClient(twilio_account_sid, twilio_auth_token))
+class MessageClient(object):
+    def __init__(self, config):
+        (self.twilio_number, self.twilio_client) = load_twilio_config()
 
-    def _send_message(self, body, to):
+    def send_message(self, body, to):
         self.twilio_client.messages.create(body=body, to=to,
                                            from_=self.twilio_number)
 
-    def _administrators(self):
-        # Read administrators
-        pass
+
+class TwilioNotificationsMiddleware(object):
+    def __init__(self):
+        self.administrators = load_admins_file()
+        self.client = MessageClient()
 
     def process_exception(self, request, exception):
         exception_message = str(exception)
         message_to_send = MESSAGE % exception_message
 
         for admin in self.administrators:
-            self._send_message(message_to_send, admin.phone_number)
+            self.client.send_message(message_to_send, admin['phone_number'])
+
+        logger.info('Administrators notified')
 
         return None
