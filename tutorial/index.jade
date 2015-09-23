@@ -1,0 +1,132 @@
+.chapter(data-title='Server Notifications and Alerts')
+  .step(data-file='config/administrators.json')
+    :markdown
+      ## What does this thing do?
+
+      This [Django](https://www.djangoproject.com/) sample application
+      demonstrates how to send SMS alerts to a list of system
+      administrators if something goes wrong on your server. In this
+      tutorial, we'll show you the key bits of code to make this work.
+
+      Let's get started!
+
+      ---
+
+      **See Also:**
+      * [Django documentation](https://docs.djangoproject.com/en/1.8/)
+      * [twilio-python documentation](https://twilio-python.readthedocs.org/en/latest/)
+
+  .step(data-file='config/administrators.json')
+    :markdown
+      ## List server admins
+
+      Create a list of administrators who should be notified if a
+      server error occurs.  The only requirement we have is a
+      `phone_number`.
+
+      ---
+
+      **See Also:**
+      * [json - JSON encoder and decoder](https://docs.python.org/3.5/library/json.html)
+
+  .step(data-file='twilio_notifications/middleware.py', data-highlight='25-35')
+    :markdown
+      ## Configure Twilio client
+
+      In order to send a message we'll need to create a [Twilio REST
+      client](https://twilio-python.readthedocs.org/en/latest/api/rest/index.html#twilio.rest.TwilioRestClient), which
+      requires reading our `TWILIO_ACCOUNT_SID`, `TWILIO_NUMBER`
+      `TWILIO_AUTH_TOKEN` from the enviroment.
+
+      ---
+
+      **See Also:**
+      * [twilio-python Quickstart](https://twilio-python.readthedocs.org/en/latest/getting-started.html)
+      * [Twilio REST Web Service Interface](https://www.twilio.com/docs/api/rest)
+
+  .step(data-file='twilio_notifications/middleware.py', data-highlight='51-65')
+    :markdown
+      ## Process all the exceptions in the application
+
+      We will implement error handling and message delivery as a piece
+      of [Django
+      middleware](https://docs.djangoproject.com/en/1.8/topics/http/middleware/). We
+      will make all the Twilio API calls from there. It's important to
+      return `None` function so regular Django exception handling can
+      run. In this case, it's a handler for errors not handled
+      elsewhere.
+
+      ---
+
+      **See Also:**
+      * [Django Middleware `process_exception`](https://docs.djangoproject.com/en/1.8/topics/http/middleware/#process-exception)
+
+  .step(data-file='twilio_notifications/middleware.py', data-highlight='56-58')
+    :markdown
+      ## Create a custom alert message
+
+      Here we create an alert message to send out via text message. You might also
+      decide to include a picture with your alert message, maybe a screenshot of the
+      application when the crash happened?
+
+  .step(data-file='twilio_notifications/middleware.py', data-highlight='51-65')
+    :markdown
+      ## Read the admins from the JSON file
+
+      Next we read the admins from our JSON file
+      and send alert messages to each of them with the private
+      `send_message` method in `MessageClient`.
+
+      ---
+
+      **See Also:**
+      * [Input and output: Reading and writing file](https://docs.python.org/3.5/tutorial/inputoutput.html#reading-and-writing-files)
+      * [json - JSON encoder and decoder](https://docs.python.org/3.5/library/json.html)
+
+  .step(data-file='twilio_notifications/middleware.py', data-highlight='37-48')
+    :markdown
+      ## Send a text message
+
+      There are the three parameters needed to [send an
+      SMS](https://twilio-python.readthedocs.org/en/latest/usage/messages.html)
+      using the [Twilio REST
+      API](https://www.twilio.com/docs/api/rest): `From`, `To`, and
+      `Body`. [US phone
+      numbers](https://www.twilio.com/help/faq/sms/is-mms-supported-for-all-carriers-in-us-and-canada)
+      can also send an image with the message.
+
+      ---
+
+      **See Also:**
+      * [REST API Docs for Message resource](https://www.twilio.com/docs/api/rest/message)
+      * [Your message logs in the account portal](https://www.twilio.com/user/account/log/messages)
+
+  .step
+    :markdown
+      ## Where to next?
+
+      That's it! We've just implemented an automated server
+      notification system that can send you server alerts if anything
+      goes wrong. If you're a Python developer working with Twilio,
+      you might want to check out these other tutorials.
+
+      [**Call tracking**](https://www.twilio.com/docs/howto/walkthrough/call-tracking/python/django)
+
+      Call Tracking helps you measure the effectiveness of different
+      marketing campaigns. By assigning a unique phone number to
+      different advertisements, you can track which ones have the best
+      call rates and get some data about the callers.
+
+      [**SMS and MMS marketing notifications**](https://www.twilio.com/docs/howto/walkthrough/appointment-reminders/python/django)
+
+      Appointment reminders allow you to automate the process of
+      reaching out to your customers in advance of an upcoming
+      appointment
+
+
+      ### Did this help?
+
+      Thanks for checking out this tutorial! If you have any feedback to share 
+      with us, we'd love to hear it. Tweet [@twilio](http://twitter.com/twilio) 
+      to let us know what you think.
+

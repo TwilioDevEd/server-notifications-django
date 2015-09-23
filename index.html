@@ -1,0 +1,107 @@
+<!DOCTYPE html><html><head><title>Server Notifications &amp; Alerts</title><style>body, html {
+  height:100%;
+  width:100%;
+  padding:0;
+  margin:0;
+  overflow:hidden;
+  background-color:#ddd;
+}
+.wrapper {
+  height:100%;
+  width:100%;
+}</style><link rel="shortcut icon" href="//twilio.com/bundles/marketing/img/favicons/favicon.ico"><link rel="apple-touch-icon" href="//twilio.com/bundles/marketing/img/favicons/favicon_57.png"><link rel="apple-touch-icon" sizes="72x72" href="//twilio.com/bundles/marketing/img/favicons/favicon_72.png"><link rel="apple-touch-icon" sizes="114x114" href="//twilio.com/bundles/marketing/img/favicons/favicon_114.png"><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"><link rel="stylesheet" href="viewsaurus.css"></head><body><div class="wrapper"><div id="viewsaurus" data-title="Server Notifications &amp; Alerts"><div class="saurus-panes"><div class="saurus-prose"><div class="saurus-prose-header"><div class="title-outer"><span class="step-title">Server Notifications &amp; Alerts</span></div></div><div class="saurus-nav-buttons"><div class="saurus-nav-button nav-overview"><div class="saurus-nav-button-inner"><i class="fa fa-fw fa-list"></i></div><div class="nav-divider"></div></div><div class="saurus-nav-button nav-previous"><div class="saurus-nav-button-inner"><a href=""> <i class="fa fa-fw fa-play fa-rotate-180"></i></a></div><div class="nav-divider"></div></div><div class="saurus-nav-button nav-next clickable"><div class="saurus-nav-button-inner"><a href="#1"> <i class="fa fa-fw fa-play"></i></a></div></div><div class="saurus-next-title"><span class="next-title-inner"></span></div></div><div class="saurus-progress-bar"></div><div class="saurus-start"><p>Never miss another server outage. Learn how to build a server notification system that will alert all administrators via SMS when a server outage occurs.</p><a href="#0">Start Tutorial</a></div><div class="saurus-content"><div data-title="Server Notifications and Alerts" class="chapter"><div data-file="config/administrators.json" class="step"><h2 id="what-does-this-thing-do-">What does this thing do?</h2>
+<p>This <a href="https://www.djangoproject.com/">Django</a> sample application
+demonstrates how to send SMS alerts to a list of system
+administrators if something goes wrong on your server. In this
+tutorial, we&#39;ll show you the key bits of code to make this work.</p>
+<p>Let&#39;s get started!</p>
+<hr>
+<p><strong>See Also:</strong></p>
+<ul>
+<li><a href="https://docs.djangoproject.com/en/1.8/">Django documentation</a></li>
+<li><a href="https://twilio-python.readthedocs.org/en/latest/">twilio-python documentation</a></li>
+</ul>
+</div><div data-file="config/administrators.json" class="step"><h2 id="list-server-admins">List server admins</h2>
+<p>Create a list of administrators who should be notified if a
+server error occurs.  The only requirement we have is a
+<code>phone_number</code>.</p>
+<hr>
+<p><strong>See Also:</strong></p>
+<ul>
+<li><a href="https://docs.python.org/3.5/library/json.html">json - JSON encoder and decoder</a></li>
+</ul>
+</div><div data-file="twilio_notifications/middleware.py" data-highlight="25-35" class="step"><h2 id="configure-twilio-client">Configure Twilio client</h2>
+<p>In order to send a message we&#39;ll need to create a <a href="https://twilio-python.readthedocs.org/en/latest/api/rest/index.html#twilio.rest.TwilioRestClient">Twilio REST
+client</a>, which
+requires reading our <code>TWILIO_ACCOUNT_SID</code>, <code>TWILIO_NUMBER</code>
+<code>TWILIO_AUTH_TOKEN</code> from the enviroment.</p>
+<hr>
+<p><strong>See Also:</strong></p>
+<ul>
+<li><a href="https://twilio-python.readthedocs.org/en/latest/getting-started.html">twilio-python Quickstart</a></li>
+<li><a href="https://www.twilio.com/docs/api/rest">Twilio REST Web Service Interface</a></li>
+</ul>
+</div><div data-file="twilio_notifications/middleware.py" data-highlight="51-65" class="step"><h2 id="process-all-the-exceptions-in-the-application">Process all the exceptions in the application</h2>
+<p>We will implement error handling and message delivery as a piece
+of <a href="https://docs.djangoproject.com/en/1.8/topics/http/middleware/">Django
+middleware</a>. We
+will make all the Twilio API calls from there. It&#39;s important to
+return <code>None</code> function so regular Django exception handling can
+run. In this case, it&#39;s a handler for errors not handled
+elsewhere.</p>
+<hr>
+<p><strong>See Also:</strong></p>
+<ul>
+<li><a href="https://docs.djangoproject.com/en/1.8/topics/http/middleware/#process-exception">Django Middleware <code>process_exception</code></a></li>
+</ul>
+</div><div data-file="twilio_notifications/middleware.py" data-highlight="56-58" class="step"><h2 id="create-a-custom-alert-message">Create a custom alert message</h2>
+<p>Here we create an alert message to send out via text message. You might also
+decide to include a picture with your alert message, maybe a screenshot of the
+application when the crash happened?</p>
+</div><div data-file="twilio_notifications/middleware.py" data-highlight="51-65" class="step"><h2 id="read-the-admins-from-the-json-file">Read the admins from the JSON file</h2>
+<p>Next we read the admins from our JSON file
+and send alert messages to each of them with the private
+<code>send_message</code> method in <code>MessageClient</code>.</p>
+<hr>
+<p><strong>See Also:</strong></p>
+<ul>
+<li><a href="https://docs.python.org/3.5/tutorial/inputoutput.html#reading-and-writing-files">Input and output: Reading and writing file</a></li>
+<li><a href="https://docs.python.org/3.5/library/json.html">json - JSON encoder and decoder</a></li>
+</ul>
+</div><div data-file="twilio_notifications/middleware.py" data-highlight="37-48" class="step"><h2 id="send-a-text-message">Send a text message</h2>
+<p>There are the three parameters needed to <a href="https://twilio-python.readthedocs.org/en/latest/usage/messages.html">send an
+SMS</a>
+using the <a href="https://www.twilio.com/docs/api/rest">Twilio REST
+API</a>: <code>From</code>, <code>To</code>, and
+<code>Body</code>. <a href="https://www.twilio.com/help/faq/sms/is-mms-supported-for-all-carriers-in-us-and-canada">US phone
+numbers</a>
+can also send an image with the message.</p>
+<hr>
+<p><strong>See Also:</strong></p>
+<ul>
+<li><a href="https://www.twilio.com/docs/api/rest/message">REST API Docs for Message resource</a></li>
+<li><a href="https://www.twilio.com/user/account/log/messages">Your message logs in the account portal</a></li>
+</ul>
+</div><div class="step"><h2 id="where-to-next-">Where to next?</h2>
+<p>That&#39;s it! We&#39;ve just implemented an automated server
+notification system that can send you server alerts if anything
+goes wrong. If you&#39;re a Python developer working with Twilio,
+you might want to check out these other tutorials.</p>
+<p><a href="https://www.twilio.com/docs/howto/walkthrough/call-tracking/python/django"><strong>Call tracking</strong></a></p>
+<p>Call Tracking helps you measure the effectiveness of different
+marketing campaigns. By assigning a unique phone number to
+different advertisements, you can track which ones have the best
+call rates and get some data about the callers.</p>
+<p><a href="https://www.twilio.com/docs/howto/walkthrough/appointment-reminders/python/django"><strong>SMS and MMS marketing notifications</strong></a></p>
+<p>Appointment reminders allow you to automate the process of
+reaching out to your customers in advance of an upcoming
+appointment</p>
+<h3 id="did-this-help-">Did this help?</h3>
+<p>Thanks for checking out this tutorial! If you have any feedback to share 
+with us, we&#39;d love to hear it. Tweet <a href="http://twitter.com/twilio">@twilio</a> 
+to let us know what you think.</p>
+</div></div>
+<div class="saurus-files" style="display:none;"><textarea class="saurus-file" data-file="config/administrators.json" data-mode="json">WwogIHsKICAgICJwaG9uZV9udW1iZXIiOiAiKzE1NTU1NTU1NTUiLAogICAgIm5hbWUiOiAiRm9vIgogIH0KXQo=</textarea>
+<textarea class="saurus-file" data-file="twilio_notifications/middleware.py" data-mode="python">ZnJvbSBfX2Z1dHVyZV9fIGltcG9ydCB1bmljb2RlX2xpdGVyYWxzCgpmcm9tIHR3aWxpby5yZXN0IGltcG9ydCBUd2lsaW9SZXN0Q2xpZW50CmZyb20gZGphbmdvLmNvcmUuZXhjZXB0aW9ucyBpbXBvcnQgTWlkZGxld2FyZU5vdFVzZWQKaW1wb3J0IG9zCmltcG9ydCBsb2dnaW5nCmltcG9ydCBqc29uCgpsb2dnZXIgPSBsb2dnaW5nLmdldExvZ2dlcihfX25hbWVfXykKCk1FU1NBR0UgPSAiIiJbVGhpcyBpcyBhIHRlc3RdIEFMRVJUISBJdCBhcHBlYXJzIHRoZSBzZXJ2ZXIgaXMgaGF2aW5nIGlzc3Vlcy4KRXhjZXB0aW9uOiAlcy4gR28gdG86IGh0dHA6Ly9uZXdyZWxpYy5jb20gZm9yIG1vcmUgZGV0YWlscy4iIiIKCk5PVF9DT05GSUdVUkVEX01FU1NBR0UgPSAiIiJDYW5ub3QgaW5pdGlhbGl6ZSBUd2lsaW8gbm90aWZpY2F0aW9uCm1pZGRsZXdhcmUuIFJlcXVpcmVkIGVudmlyb21lbnQgdmFyaWFibGVzIFRXSUxJT19BQ0NPVU5UX1NJRCwgb3IKVFdJTElPX0FVVEhfVE9LRU4gb3IgVFdJTElPX05VTUJFUiBtaXNzaW5nIiIiCgoKZGVmIGxvYWRfYWRtaW5zX2ZpbGUoKToKICAgIHdpdGggb3BlbignY29uZmlnL2FkbWluaXN0cmF0b3JzLmpzb24nKSBhcyBhZG1pbnNGaWxlOgogICAgICAgIGFkbWlucyA9IGpzb24ubG9hZChhZG1pbnNGaWxlKQogICAgICAgIHJldHVybiBhZG1pbnMKCgpkZWYgbG9hZF90d2lsaW9fY29uZmlnKCk6CiAgICB0d2lsaW9fYWNjb3VudF9zaWQgPSBvcy5lbnZpcm9uLmdldCgnVFdJTElPX0FDQ09VTlRfU0lEJykKICAgIHR3aWxpb19hdXRoX3Rva2VuID0gb3MuZW52aXJvbi5nZXQoJ1RXSUxJT19BVVRIX1RPS0VOJykKICAgIHR3aWxpb19udW1iZXIgPSBvcy5lbnZpcm9uLmdldCgnVFdJTElPX05VTUJFUicpCgogICAgaWYgbm90IGFsbChbdHdpbGlvX2FjY291bnRfc2lkLCB0d2lsaW9fYXV0aF90b2tlbiwgdHdpbGlvX251bWJlcl0pOgogICAgICAgIGxvZ2dlci5lcnJvcihOT1RfQ09ORklHVVJFRF9NRVNTQUdFKQogICAgICAgIHJhaXNlIE1pZGRsZXdhcmVOb3RVc2VkCgogICAgcmV0dXJuICh0d2lsaW9fbnVtYmVyLCB0d2lsaW9fYWNjb3VudF9zaWQsIHR3aWxpb19hdXRoX3Rva2VuKQoKCmNsYXNzIE1lc3NhZ2VDbGllbnQob2JqZWN0KToKICAgIGRlZiBfX2luaXRfXyhzZWxmKToKICAgICAgICAodHdpbGlvX251bWJlciwgdHdpbGlvX2FjY291bnRfc2lkLAogICAgICAgICB0d2lsaW9fYXV0aF90b2tlbikgPSBsb2FkX3R3aWxpb19jb25maWcoKQoKICAgICAgICBzZWxmLnR3aWxpb19udW1iZXIgPSB0d2lsaW9fbnVtYmVyCiAgICAgICAgc2VsZi50d2lsaW9fY2xpZW50ID0gVHdpbGlvUmVzdENsaWVudCh0d2lsaW9fYWNjb3VudF9zaWQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0d2lsaW9fYXV0aF90b2tlbikKCiAgICBkZWYgc2VuZF9tZXNzYWdlKHNlbGYsIGJvZHksIHRvKToKICAgICAgICBzZWxmLnR3aWxpb19jbGllbnQubWVzc2FnZXMuY3JlYXRlKGJvZHk9Ym9keSwgdG89dG8sCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmcm9tXz1zZWxmLnR3aWxpb19udW1iZXIpCgoKY2xhc3MgVHdpbGlvTm90aWZpY2F0aW9uc01pZGRsZXdhcmUob2JqZWN0KToKICAgIGRlZiBfX2luaXRfXyhzZWxmKToKICAgICAgICBzZWxmLmFkbWluaXN0cmF0b3JzID0gbG9hZF9hZG1pbnNfZmlsZSgpCiAgICAgICAgc2VsZi5jbGllbnQgPSBNZXNzYWdlQ2xpZW50KCkKCiAgICBkZWYgcHJvY2Vzc19leGNlcHRpb24oc2VsZiwgcmVxdWVzdCwgZXhjZXB0aW9uKToKICAgICAgICBleGNlcHRpb25fbWVzc2FnZSA9IHN0cihleGNlcHRpb24pCiAgICAgICAgbWVzc2FnZV90b19zZW5kID0gTUVTU0FHRSAlIGV4Y2VwdGlvbl9tZXNzYWdlCgogICAgICAgIGZvciBhZG1pbiBpbiBzZWxmLmFkbWluaXN0cmF0b3JzOgogICAgICAgICAgICBzZWxmLmNsaWVudC5zZW5kX21lc3NhZ2UobWVzc2FnZV90b19zZW5kLCBhZG1pblsncGhvbmVfbnVtYmVyJ10pCgogICAgICAgIGxvZ2dlci5pbmZvKCdBZG1pbmlzdHJhdG9ycyBub3RpZmllZCcpCgogICAgICAgIHJldHVybiBOb25lCg==</textarea>
+</div>
+</div><div class="saurus-overview"><ul></ul></div></div><div class="saurus-code"><div class="file-path"><span class="crumb-container"></span><i class="fa fa-fw fa-folder"></i></div><div class="saurus-editor"></div></div><div class="saurus-explorer"><div class="saurus-file-list"></div><a href="https://github.com/TwilioDevEd/server-notifications-django" target="_blank" class="explorer-get-code"> <i class="fa fa-lg fa-github-square"> </i>View Code on GitHub</a></div></div></div></div><script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script><script src="ace/ace.js"></script><script src="ace/theme-monokai.js"></script><script src="viewsaurus.js"></script></body></html>
