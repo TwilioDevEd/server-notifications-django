@@ -26,7 +26,7 @@ class TestNotificationMiddleware(unittest.TestCase):
 
         mock_message_client = Mock(spec=MessageClient)
         mock_load_twilio_config.return_value = (sending_number,
-                                                mock_message_client)
+                                                '4ccou1s1d', 'som3tok3n')
 
         middleware = TwilioNotificationsMiddleware()
         middleware.client = mock_message_client
