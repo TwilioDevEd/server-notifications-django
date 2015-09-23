@@ -31,13 +31,17 @@ def load_twilio_config():
         logger.error(NOT_CONFIGURED_MESSAGE)
         raise MiddlewareNotUsed
 
-    return (twilio_number,
-            TwilioRestClient(twilio_account_sid, twilio_auth_token))
+    return (twilio_number, twilio_account_sid, twilio_auth_token)
 
 
 class MessageClient(object):
     def __init__(self):
-        (self.twilio_number, self.twilio_client) = load_twilio_config()
+        (twilio_number, twilio_account_sid,
+         twilio_auth_token) = load_twilio_config()
+
+        self.twilio_number = twilio_number
+        self.twilio_client = TwilioRestClient(twilio_account_sid,
+                                              twilio_auth_token)
 
     def send_message(self, body, to):
         self.twilio_client.messages.create(body=body, to=to,
