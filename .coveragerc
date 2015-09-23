@@ -8,3 +8,4 @@ omit =
   twilio_sample_project/wsgi.py
   */migrations/*
   */tests.py
+  */tests/*.py

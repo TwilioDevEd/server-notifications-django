@@ -1,5 +1,4 @@
-from django.conf.urls import include, url
-from django.contrib import admin
+from django.conf.urls import url
 
 
 def error_handler(request):
@@ -8,7 +7,4 @@ def error_handler(request):
 urlpatterns = [
     # Your URLs go here
     url(r'^error/$', error_handler),
-
-    # Include the Django admin
-    url(r'^admin/', include(admin.site.urls)),
 ]

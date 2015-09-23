@@ -1,9 +1,10 @@
-# Server Notifications
+# Server Notifications with Twilio and Django
 
 [![Build Status](https://travis-ci.org/TwilioDevEd/server-notifications-django.svg?branch=master)](https://travis-ci.org/TwilioDevEd/server-notifications-django)
 [![Coverage Status](https://coveralls.io/repos/TwilioDevEd/server-notifications-django/badge.svg?branch=master&service=github)](https://coveralls.io/github/TwilioDevEd/server-notifications-django?branch=master)
 
-*Include 2-3 sentences here describing this sample app and what it does.*
+This application demostrates how to use Twilio to send alerts when
+your errors happen in your application
 
 ## Quickstart
 
@@ -31,29 +32,16 @@ To run the app locally, first clone this repository and `cd` into its directory.
     pip install -r requirements.txt
     ```
 
-1. Start a local PostgreSQL database and create a database called `server_notifications_django`:
-    - If on a Mac, we recommend [Postgres.app](http://postgresapp.com/). After install, open psql and run `CREATE DATABASE server_notifications_django;`
-    - If Postgres is already installed locally, you can just run `createdb server_notifications_django` from a terminal
-
-1. Run the migrations with:
-
-    ```
-    python manage.py migrate
-    ```
-
-1. Optionally create a superuser so you can access the Django admin:
-
-    ```
-    python manage.py createsuperuser
-    ```
-
 1. Copy the `.env_example` file to `.env`, and edit it to include your Twilio API credentials (found at https://www.twilio.com/user/account/voice)
+1. For the TWILIO_NUMBER variable you'll need to provision a new number in the [Manage Numbers page](https://www.twilio.com/user/account/phone-numbers/incoming) under your account. The phone number should be in E.164 format
 1. Run `source .env` to apply the environment variables (or even better, use [autoenv](https://github.com/kennethreitz/autoenv))
+1. Customize `config/administrators.json` with your phone number.
 1. Start the development server
 
     ```
     python manage.py runserver
     ```
+1. Go to [http://localhost:8000/error](http://localhost:8000/error). You'll receive a text shortly with details on the exception.
 
 ## Run the tests
 
