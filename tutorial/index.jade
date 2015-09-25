@@ -47,7 +47,7 @@
       * [twilio-python Quickstart](https://twilio-python.readthedocs.org/en/latest/getting-started.html)
       * [Twilio REST Web Service Interface](https://www.twilio.com/docs/api/rest)
 
-  .step(data-file='twilio_notifications/middleware.py', data-highlight='51-65')
+  .step(data-file='twilio_notifications/middleware.py', data-highlight='51-67')
     :markdown
       ## Process all the exceptions in the application
 
@@ -72,13 +72,12 @@
       decide to include a picture with your alert message, maybe a screenshot of the
       application when the crash happened?
 
-  .step(data-file='twilio_notifications/middleware.py', data-highlight='51-65')
+  .step(data-file='twilio_notifications/middleware.py', data-highlight='62-65')
     :markdown
-      ## Read the admins from the JSON file
+      ## Trigger notifications for administrator list
 
-      Next we read the admins from our JSON file
-      and send alert messages to each of them with the private
-      `send_message` method in `MessageClient`.
+      Next we send alert messages to each administrator with the `send_message` 
+      method in `MessageClient`.
 
       ---
 
@@ -94,7 +93,7 @@
       SMS](https://twilio-python.readthedocs.org/en/latest/usage/messages.html)
       using the [Twilio REST
       API](https://www.twilio.com/docs/api/rest): `From`, `To`, and
-      `Body`. [US phone
+      `Body`. [US and Canadian phone
       numbers](https://www.twilio.com/help/faq/sms/is-mms-supported-for-all-carriers-in-us-and-canada)
       can also send an image with the message.
 

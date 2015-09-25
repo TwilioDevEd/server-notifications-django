@@ -44,7 +44,7 @@ requires reading our <code>TWILIO_ACCOUNT_SID</code>, <code>TWILIO_NUMBER</code>
 <li><a href="https://twilio-python.readthedocs.org/en/latest/getting-started.html">twilio-python Quickstart</a></li>
 <li><a href="https://www.twilio.com/docs/api/rest">Twilio REST Web Service Interface</a></li>
 </ul>
-</div><div data-file="twilio_notifications/middleware.py" data-highlight="51-65" class="step"><h2 id="process-all-the-exceptions-in-the-application">Process all the exceptions in the application</h2>
+</div><div data-file="twilio_notifications/middleware.py" data-highlight="51-67" class="step"><h2 id="process-all-the-exceptions-in-the-application">Process all the exceptions in the application</h2>
 <p>We will implement error handling and message delivery as a piece
 of <a href="https://docs.djangoproject.com/en/1.8/topics/http/middleware/">Django
 middleware</a>. We
@@ -61,10 +61,9 @@ elsewhere.</p>
 <p>Here we create an alert message to send out via text message. You might also
 decide to include a picture with your alert message, maybe a screenshot of the
 application when the crash happened?</p>
-</div><div data-file="twilio_notifications/middleware.py" data-highlight="51-65" class="step"><h2 id="read-the-admins-from-the-json-file">Read the admins from the JSON file</h2>
-<p>Next we read the admins from our JSON file
-and send alert messages to each of them with the private
-<code>send_message</code> method in <code>MessageClient</code>.</p>
+</div><div data-file="twilio_notifications/middleware.py" data-highlight="62-65" class="step"><h2 id="trigger-notifications-for-administrator-list">Trigger notifications for administrator list</h2>
+<p>Next we send alert messages to each administrator with the <code>send_message</code> 
+method in <code>MessageClient</code>.</p>
 <hr>
 <p><strong>See Also:</strong></p>
 <ul>
@@ -76,7 +75,7 @@ and send alert messages to each of them with the private
 SMS</a>
 using the <a href="https://www.twilio.com/docs/api/rest">Twilio REST
 API</a>: <code>From</code>, <code>To</code>, and
-<code>Body</code>. <a href="https://www.twilio.com/help/faq/sms/is-mms-supported-for-all-carriers-in-us-and-canada">US phone
+<code>Body</code>. <a href="https://www.twilio.com/help/faq/sms/is-mms-supported-for-all-carriers-in-us-and-canada">US and Canadian phone
 numbers</a>
 can also send an image with the message.</p>
 <hr>
@@ -104,7 +103,7 @@ appointment</p>
 with us, we&#39;d love to hear it. Tweet <a href="http://twitter.com/twilio">@twilio</a> 
 to let us know what you think.</p>
 </div></div>
-<div class="saurus-files" style="display:none;"><textarea class="saurus-file" data-file="config/administrators.json" data-mode="json">WwogIHsKICAgICJwaG9uZV9udW1iZXIiOiAiKzE1NTU1NTU1NTUiLAogICAgIm5hbWUiOiAiRm9vIgogIH0KXQo=</textarea>
+<div class="saurus-files" style="display:none;"><textarea class="saurus-file" data-file="config/administrators.json" data-mode="json">WwogIHsKICAgICJwaG9uZV9udW1iZXIiOiAiKzE1NTU2NjY3Nzc3IiwKICAgICJuYW1lIjogIkZvbyBCYXIiCiAgfQpdCg==</textarea>
 <textarea class="saurus-file" data-file="twilio_notifications/middleware.py" data-mode="python">ZnJvbSBfX2Z1dHVyZV9fIGltcG9ydCB1bmljb2RlX2xpdGVyYWxzCgpmcm9tIHR3aWxpby5yZXN0IGltcG9ydCBUd2lsaW9SZXN0Q2xpZW50CmZyb20gZGphbmdvLmNvcmUuZXhjZXB0aW9ucyBpbXBvcnQgTWlkZGxld2FyZU5vdFVzZWQKaW1wb3J0IG9zCmltcG9ydCBsb2dnaW5nCmltcG9ydCBqc29uCgpsb2dnZXIgPSBsb2dnaW5nLmdldExvZ2dlcihfX25hbWVfXykKCk1FU1NBR0UgPSAiIiJbVGhpcyBpcyBhIHRlc3RdIEFMRVJUISBJdCBhcHBlYXJzIHRoZSBzZXJ2ZXIgaXMgaGF2aW5nIGlzc3Vlcy4KRXhjZXB0aW9uOiAlcy4gR28gdG86IGh0dHA6Ly9uZXdyZWxpYy5jb20gZm9yIG1vcmUgZGV0YWlscy4iIiIKCk5PVF9DT05GSUdVUkVEX01FU1NBR0UgPSAiIiJDYW5ub3QgaW5pdGlhbGl6ZSBUd2lsaW8gbm90aWZpY2F0aW9uCm1pZGRsZXdhcmUuIFJlcXVpcmVkIGVudmlyb21lbnQgdmFyaWFibGVzIFRXSUxJT19BQ0NPVU5UX1NJRCwgb3IKVFdJTElPX0FVVEhfVE9LRU4gb3IgVFdJTElPX05VTUJFUiBtaXNzaW5nIiIiCgoKZGVmIGxvYWRfYWRtaW5zX2ZpbGUoKToKICAgIHdpdGggb3BlbignY29uZmlnL2FkbWluaXN0cmF0b3JzLmpzb24nKSBhcyBhZG1pbnNGaWxlOgogICAgICAgIGFkbWlucyA9IGpzb24ubG9hZChhZG1pbnNGaWxlKQogICAgICAgIHJldHVybiBhZG1pbnMKCgpkZWYgbG9hZF90d2lsaW9fY29uZmlnKCk6CiAgICB0d2lsaW9fYWNjb3VudF9zaWQgPSBvcy5lbnZpcm9uLmdldCgnVFdJTElPX0FDQ09VTlRfU0lEJykKICAgIHR3aWxpb19hdXRoX3Rva2VuID0gb3MuZW52aXJvbi5nZXQoJ1RXSUxJT19BVVRIX1RPS0VOJykKICAgIHR3aWxpb19udW1iZXIgPSBvcy5lbnZpcm9uLmdldCgnVFdJTElPX05VTUJFUicpCgogICAgaWYgbm90IGFsbChbdHdpbGlvX2FjY291bnRfc2lkLCB0d2lsaW9fYXV0aF90b2tlbiwgdHdpbGlvX251bWJlcl0pOgogICAgICAgIGxvZ2dlci5lcnJvcihOT1RfQ09ORklHVVJFRF9NRVNTQUdFKQogICAgICAgIHJhaXNlIE1pZGRsZXdhcmVOb3RVc2VkCgogICAgcmV0dXJuICh0d2lsaW9fbnVtYmVyLCB0d2lsaW9fYWNjb3VudF9zaWQsIHR3aWxpb19hdXRoX3Rva2VuKQoKCmNsYXNzIE1lc3NhZ2VDbGllbnQob2JqZWN0KToKICAgIGRlZiBfX2luaXRfXyhzZWxmKToKICAgICAgICAodHdpbGlvX251bWJlciwgdHdpbGlvX2FjY291bnRfc2lkLAogICAgICAgICB0d2lsaW9fYXV0aF90b2tlbikgPSBsb2FkX3R3aWxpb19jb25maWcoKQoKICAgICAgICBzZWxmLnR3aWxpb19udW1iZXIgPSB0d2lsaW9fbnVtYmVyCiAgICAgICAgc2VsZi50d2lsaW9fY2xpZW50ID0gVHdpbGlvUmVzdENsaWVudCh0d2lsaW9fYWNjb3VudF9zaWQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0d2lsaW9fYXV0aF90b2tlbikKCiAgICBkZWYgc2VuZF9tZXNzYWdlKHNlbGYsIGJvZHksIHRvKToKICAgICAgICBzZWxmLnR3aWxpb19jbGllbnQubWVzc2FnZXMuY3JlYXRlKGJvZHk9Ym9keSwgdG89dG8sCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmcm9tXz1zZWxmLnR3aWxpb19udW1iZXIsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjIG1lZGlhX3VybD1bJ2h0dHBzOi8vZGVtby50d2lsaW8uY29tL293bC5wbmcnXSkKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICkKCgpjbGFzcyBUd2lsaW9Ob3RpZmljYXRpb25zTWlkZGxld2FyZShvYmplY3QpOgogICAgZGVmIF9faW5pdF9fKHNlbGYpOgogICAgICAgIHNlbGYuYWRtaW5pc3RyYXRvcnMgPSBsb2FkX2FkbWluc19maWxlKCkKICAgICAgICBzZWxmLmNsaWVudCA9IE1lc3NhZ2VDbGllbnQoKQoKICAgIGRlZiBwcm9jZXNzX2V4Y2VwdGlvbihzZWxmLCByZXF1ZXN0LCBleGNlcHRpb24pOgogICAgICAgIGV4Y2VwdGlvbl9tZXNzYWdlID0gc3RyKGV4Y2VwdGlvbikKICAgICAgICBtZXNzYWdlX3RvX3NlbmQgPSBNRVNTQUdFICUgZXhjZXB0aW9uX21lc3NhZ2UKCiAgICAgICAgZm9yIGFkbWluIGluIHNlbGYuYWRtaW5pc3RyYXRvcnM6CiAgICAgICAgICAgIHNlbGYuY2xpZW50LnNlbmRfbWVzc2FnZShtZXNzYWdlX3RvX3NlbmQsIGFkbWluWydwaG9uZV9udW1iZXInXSkKCiAgICAgICAgbG9nZ2VyLmluZm8oJ0FkbWluaXN0cmF0b3JzIG5vdGlmaWVkJykKCiAgICAgICAgcmV0dXJuIE5vbmUK</textarea>
 </div>
 </div><div class="saurus-overview"><ul></ul></div></div><div class="saurus-code"><div class="file-path"><span class="crumb-container"></span><i class="fa fa-fw fa-folder"></i></div><div class="saurus-editor"></div></div><div class="saurus-explorer"><div class="saurus-file-list"></div><a href="https://github.com/TwilioDevEd/server-notifications-django" target="_blank" class="explorer-get-code"> <i class="fa fa-lg fa-github-square"> </i>View Code on GitHub</a></div></div></div></div><script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script><script src="ace/ace.js"></script><script src="ace/theme-monokai.js"></script><script src="viewsaurus.js"></script></body></html>
