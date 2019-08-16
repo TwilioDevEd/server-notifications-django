@@ -2,7 +2,7 @@
 
 # Django (1.8 is a long-term support release)
 Django==1.8
-twilio==6.9.0
+twilio==6.29.3
 whitenoise
 
 # Production dependencies
