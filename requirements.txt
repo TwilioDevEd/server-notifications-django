@@ -1,7 +1,7 @@
 # Requirements for server-notifications-django
 
 # Django (1.8 is a long-term support release)
-Django==1.8
+Django==1.11.20
 twilio==6.9.0
 whitenoise
 
