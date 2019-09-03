@@ -1,14 +1,14 @@
 # Requirements for server-notifications-django
 
-# Django (1.8 is a long-term support release)
-Django==1.8
-twilio==6.9.0
-whitenoise
+Django==2.2.5
+twilio==6.29.4
+python-dotenv==0.10.3
 
 # Production dependencies
 gunicorn
 
 # Test dependencies
+black
 coverage
+flake8
 mock
-six

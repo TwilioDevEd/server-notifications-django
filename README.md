@@ -9,15 +9,15 @@ Use Twilio to send SMS alerts so that you never miss a critical issue.
 
 ## Quickstart
 
-This project is built using the [Django](https://www.djangoproject.com/) web framework. It runs on Python 2.7+ and Python 3.4+.
+This project is built using the [Django](https://www.djangoproject.com/) web framework. It runs on Python 3.6+.
 
 To run the app locally, first clone this repository and `cd` into its directory. Then:
 
 1. Create a new virtual environment:
-    - If using vanilla [virtualenv](https://virtualenv.pypa.io/en/latest/):
+    - If using vanilla with Python 3 [virtualenv](https://docs.python.org/3/library/venv.html):
 
         ```
-        virtualenv venv
+        python -m venv venv
         source venv/bin/activate
         ```
 
@@ -35,14 +35,14 @@ To run the app locally, first clone this repository and `cd` into its directory.
 
 1. Copy the `.env_example` file to `.env`, and edit it to include your Twilio API credentials (found at https://www.twilio.com/user/account/voice)
 1. For the TWILIO_NUMBER variable you'll need to provision a new number in the [Manage Numbers page](https://www.twilio.com/user/account/phone-numbers/incoming) under your account. The phone number should be in E.164 format
-1. Run `source .env` to apply the environment variables (or even better, use [autoenv](https://github.com/kennethreitz/autoenv))
+1. (Optional) This project integrate [python-dotenv](https://github.com/theskumar/python-dotenv) to automatically load the `.env` file. Alternatively, you can run `source .env` to apply the environment variables (or even use [autoenv](https://github.com/kennethreitz/autoenv))
 1. Customize `config/administrators.json` with your phone number.
 1. Start the development server
 
     ```
     python manage.py runserver
     ```
-1. Go to [http://localhost:8000/error](http://localhost:8000/error). You'll receive a text shortly with details on the exception.
+1. Go to [http://localhost:8000/error](http://localhost:8000/error/). You'll receive a text shortly with details on the exception.
 
 ## Run the tests
 
