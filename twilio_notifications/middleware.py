@@ -4,7 +4,6 @@ import os
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.http import HttpResponse
 from dotenv import load_dotenv
 from twilio.rest import Client
 
@@ -84,6 +83,4 @@ class TwilioNotificationsMiddleware:
             self.client.send_message(message_to_send, admin['phone_number'])
 
         logger.info('Administrators notified!')
-        return HttpResponse(
-            "An error occured. Don't panic! Administrators are notified."
-        )
+        return None
