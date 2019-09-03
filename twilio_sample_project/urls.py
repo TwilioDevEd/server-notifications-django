@@ -1,10 +1,11 @@
-from django.conf.urls import url
+from django.urls import path
 
 
 def error_handler(request):
-    raise Exception('Uh on an error happened')
+    raise Exception('Uh oh an error happened')
+
 
 urlpatterns = [
     # Your URLs go here
-    url(r'^error/$', error_handler),
+    path('error/', error_handler),
 ]
