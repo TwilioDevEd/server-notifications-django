@@ -1,7 +1,7 @@
 # Requirements for server-notifications-django
 
 Django==2.2.5
-twilio==6.30.0
+twilio==6.35.4
 python-dotenv==0.10.3
 
 # Production dependencies
