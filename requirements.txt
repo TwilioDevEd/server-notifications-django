@@ -2,7 +2,7 @@
 
 Django==2.2.5
 twilio==6.30.0
-python-dotenv==0.10.3
+python-dotenv==0.14.0
 
 # Production dependencies
 gunicorn
