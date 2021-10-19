@@ -1,6 +1,6 @@
 # Server Notifications with Twilio and Django
 
-[![Build Status](https://travis-ci.org/TwilioDevEd/server-notifications-django.svg?branch=master)](https://travis-ci.org/TwilioDevEd/server-notifications-django)
+[![Build and test](https://github.com/TwilioDevEd/server-notifications-django/actions/workflows/build_test.yml/badge.svg)](https://github.com/TwilioDevEd/server-notifications-django/actions/workflows/build_test.yml)
 [![Coverage Status](https://coveralls.io/repos/TwilioDevEd/server-notifications-django/badge.svg?branch=master&service=github)](https://coveralls.io/github/TwilioDevEd/server-notifications-django?branch=master)
 
 Use Twilio to send SMS alerts so that you never miss a critical issue.
