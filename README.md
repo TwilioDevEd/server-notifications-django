@@ -48,7 +48,7 @@ To run the app locally, first clone this repository and `cd` into its directory.
 
 Follow previous guide and in step 3 do:
 
-1. Copy the `.env.production.example` file to `.env`, and edit it to include your Twilio API credentials (found at https://www.twilio.com/user/account/voice)
+1. Copy the `.env.production.example` file to `.env`, and edit it to include your Twilio API credentials (found at https://www.twilio.com/user/account/voice) and add the `DJANGO_SECRET_KEY`
 
 ## Run the tests
 
