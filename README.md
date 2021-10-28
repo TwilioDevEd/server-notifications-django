@@ -33,7 +33,7 @@ To run the app locally, first clone this repository and `cd` into its directory.
     pip install -r requirements.txt
     ```
 
-1. Copy the `.env_example` file to `.env`, and edit it to include your Twilio API credentials (found at https://www.twilio.com/user/account/voice)
+1. Copy the `.env.example` file to `.env`, and edit it to include your Twilio API credentials (found at https://www.twilio.com/user/account/voice)
 1. For the TWILIO_NUMBER variable you'll need to provision a new number in the [Manage Numbers page](https://www.twilio.com/user/account/phone-numbers/incoming) under your account. The phone number should be in E.164 format
 1. (Optional) This project integrate [python-dotenv](https://github.com/theskumar/python-dotenv) to automatically load the `.env` file. Alternatively, you can run `source .env` to apply the environment variables (or even use [autoenv](https://github.com/kennethreitz/autoenv))
 1. Customize `config/administrators.json` with your phone number.
@@ -43,6 +43,12 @@ To run the app locally, first clone this repository and `cd` into its directory.
     python manage.py runserver
     ```
 1. Go to [http://localhost:8000/error](http://localhost:8000/error/). You'll receive a text shortly with details on the exception.
+
+### Use Production Environment
+
+Follow previous guide and in step 3 do:
+
+1. Copy the `.env.production.example` file to `.env`, and edit it to include your Twilio API credentials (found at https://www.twilio.com/user/account/voice)
 
 ## Run the tests
 
