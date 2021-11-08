@@ -7,4 +7,4 @@ Local settings
 from .common import *  # noqa
 
 # Use DEBUG for local development
-DEBUG = True
+DEBUG = False
