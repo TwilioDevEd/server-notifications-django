@@ -44,6 +44,8 @@ To run the app locally, first clone this repository and `cd` into its directory.
     ```
 1. Go to [http://localhost:8000/error](http://localhost:8000/error/). You'll receive a text shortly with details on the exception.
 
+*Note:* To enable debug logs in local environment, set the `DEBUG` variable to `True` in the `local.py` file
+
 ### Use Production Environment
 
 Follow previous guide and in step 3 do:
