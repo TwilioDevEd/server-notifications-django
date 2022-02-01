@@ -1,6 +1,6 @@
 # Requirements for server-notifications-django
 
-Django==3.2.0
+Django==4.0.2
 twilio==6.30.0
 python-dotenv==0.10.3
 
